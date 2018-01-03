@@ -1,0 +1,21 @@
+*{
+    margin: 0;
+    padding: 0;
+}
+body{
+    overflow-x: hidden;
+    font-family: 'Open Sans', sans-serif;
+}
+li{
+    list-style: none;
+    
+}
+.container-fluid ul{
+        overflow: hidden;
+         margin: 10px auto;
+}
+.container-fluid ul li{
+   float: left;
+    margin-left: 50px;
+    
+}

@@ -1,4 +1,8 @@
+<<<<<<< OURS
+## HotelBooking
+=======
 # HotelBooking_SpringMVC
+>>>>>>> THEIRS
 # project cuoi khoa
 
 ----
