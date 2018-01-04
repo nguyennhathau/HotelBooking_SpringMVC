@@ -13,4 +13,9 @@ import org.springframework.stereotype.Repository;
 @Repository
 public interface CustomerRepository extends CrudRepository<Customer, Integer>{
 //    List<Customer> findByFullName(String name);
+    public List<Customer> findAllByOrderByCustIDDesc();
+    public List<Customer> findAllByOrderByFullNameDesc();
+    public List<Customer> findAllByOrderByFullName();
+    
+    
 }

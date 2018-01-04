@@ -6,10 +6,13 @@
 package repository;
 
 import entity.Booking;
+import java.util.List;
 import org.springframework.data.repository.CrudRepository;
 import org.springframework.stereotype.Repository;
 
 @Repository
 public interface BookingRepository extends CrudRepository<Booking, Integer>{
-    
+    public List<Booking> findAllByOrderByBookingIDDesc();
+    public List<Booking> findAllByOrderByDateBookingDesc();
+    public List<Booking> findAllByOrderByDateBooking();
 }

@@ -18,4 +18,17 @@ public interface AccountRepository extends CrudRepository<Account, Integer>{
     
      public List<Account> findAllByOrderByAccountIDAsc();
      public List<Account> findAllByOrderByAccountIDDesc();
+     
+     @Query(value = " select * from account a order by a.status", nativeQuery = true)
+     
+     //status
+     List<Account> sortAccountBystatus();
+     List<Account> findAllByOrderByStatusDesc();
+     
+     //role
+     @Query(value = " select * from account a inner join role r on a.roleID = r.roleID order by a.roleID", nativeQuery = true)
+     List<Account> sortbyrole();
+     
+     @Query(value = " select * from account a inner join role r on a.roleID = r.roleID order by a.roleID desc", nativeQuery = true)
+     List<Account> sortbyroleDesc();
 }
