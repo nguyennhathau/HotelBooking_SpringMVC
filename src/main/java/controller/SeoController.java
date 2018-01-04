@@ -42,7 +42,7 @@ public class SeoController {
     @Autowired
     ServicesDetailRepo servicesdtRepo;
 
-    //danh sach khach hang
+    //phan trang 1 by id khach hang
     @RequestMapping(value = "/managerCust")
     public String getCustomers(Model model,@RequestParam(name = "pages", defaultValue = "1")  int pages) {
         List<Customer> listCustomer = (List<Customer>) custRepo.findAll();
@@ -78,9 +78,128 @@ public class SeoController {
         model.addAttribute("pages", pages);
         model.addAttribute("totalPages", totalPages);
         model.addAttribute("listCustomer", listCustpt);
+        model.addAttribute("sort", "sortAsc");
         return "manageCustomer";
     }
+    
+    //phan trang tiep theo by id
+     @RequestMapping(value = "/managerCustDesc")
+    public String getCustomersDesc(Model model,@RequestParam(name = "pages")  int pages) {
+        List<Customer> listCustomer = (List<Customer>) custRepo.findAllByOrderByCustIDDesc();
+                
+        //dem so trang booking
+        int totalCust = listCustomer.size();
+        int firstResult, maxResult;
+        
+        
 
+        int totalPages;
+        if (totalCust % 12 == 0) {
+            totalPages = totalCust / 6;
+        } else {
+            totalPages = (totalCust / 6) + 1;
+        }
+        int count = 0;
+        if (totalCust <= 6) {
+            firstResult = 0;
+            maxResult = totalCust;
+        } else {
+            firstResult = (pages - 1) * 6;
+            maxResult = firstResult + 6;
+        }
+        List<Customer> listCustpt = new ArrayList<Customer>();
+        for (int i = firstResult; i < totalCust && i < maxResult; i++) {
+            count++;
+            listCustpt.add(listCustomer.get(i));
+        }
+        
+        //count = count + firstResult;
+        model.addAttribute("pages", pages);
+        model.addAttribute("totalPages", totalPages);
+        model.addAttribute("listCustomer", listCustpt);
+        model.addAttribute("sort", "sortDesc");
+        return "manageCustomer";
+    }
+    
+    //phan trang 1 by full name khach hang
+    @RequestMapping(value = "/managerCustFN")
+    public String sortByfullname(Model model,@RequestParam(name = "pages", defaultValue = "1")  int pages) {
+        List<Customer> listCustomer = (List<Customer>) custRepo.findAllByOrderByFullName();
+        
+        
+        //dem so trang booking
+        int totalCust = listCustomer.size();
+        int firstResult, maxResult;
+        
+        
+
+        int totalPages;
+        if (totalCust % 12 == 0) {
+            totalPages = totalCust / 6;
+        } else {
+            totalPages = (totalCust / 6) + 1;
+        }
+        int count = 0;
+        if (totalCust <= 6) {
+            firstResult = 0;
+            maxResult = totalCust;
+        } else {
+            firstResult = (pages - 1) * 6;
+            maxResult = firstResult + 6;
+        }
+        List<Customer> listCustpt = new ArrayList<Customer>();
+        for (int i = firstResult; i < totalCust && i < maxResult; i++) {
+            count++;
+            listCustpt.add(listCustomer.get(i));
+        }
+        
+        //count = count + firstResult;
+        model.addAttribute("pages", pages);
+        model.addAttribute("totalPages", totalPages);
+        model.addAttribute("listCustomer", listCustpt);
+        model.addAttribute("sort", "sortAscFN");
+        return "manageCustomer";
+    }
+    
+    //phan trang tiep theo by fullname
+     @RequestMapping(value = "/managerCustDescFN")
+    public String sortByfullnameDesc(Model model,@RequestParam(name = "pages")  int pages) {
+        List<Customer> listCustomer = (List<Customer>) custRepo.findAllByOrderByFullNameDesc();
+                
+        //dem so trang booking
+        int totalCust = listCustomer.size();
+        int firstResult, maxResult;
+        
+        
+
+        int totalPages;
+        if (totalCust % 12 == 0) {
+            totalPages = totalCust / 6;
+        } else {
+            totalPages = (totalCust / 6) + 1;
+        }
+        int count = 0;
+        if (totalCust <= 6) {
+            firstResult = 0;
+            maxResult = totalCust;
+        } else {
+            firstResult = (pages - 1) * 6;
+            maxResult = firstResult + 6;
+        }
+        List<Customer> listCustpt = new ArrayList<Customer>();
+        for (int i = firstResult; i < totalCust && i < maxResult; i++) {
+            count++;
+            listCustpt.add(listCustomer.get(i));
+        }
+        
+        //count = count + firstResult;
+        model.addAttribute("pages", pages);
+        model.addAttribute("totalPages", totalPages);
+        model.addAttribute("listCustomer", listCustpt);
+        model.addAttribute("sort", "sortDescFN");
+        return "manageCustomer";
+    }
+    
     // xoa khach hang
     @RequestMapping(value = "/deleteCust/{custID}", method = GET)
     public String delCust(@PathVariable("custID") int id, Customer Cust) {
@@ -104,7 +223,7 @@ public class SeoController {
         return "redirect:/managerCust";
     }
 
-    //danh sach booking
+    //phan trang 1
     @RequestMapping(value = "/getBooking")
     public String getBooking(Model model,@RequestParam(name = "pages", defaultValue = "1")  int pages) {
         List<Booking> listBooking = (List<Booking>) bookingRepo.findAll();
@@ -136,6 +255,116 @@ public class SeoController {
         model.addAttribute("pages", pages);
         model.addAttribute("totalPages", totalPages);
         model.addAttribute("listBooking", ptListBook);
+        model.addAttribute("sort", "sortId");
+        return "manageBooking";
+    }
+
+    
+    //phan trang desc by id booking tiep theo cua booking
+    @RequestMapping(value="/getBookingDesc")
+    public String getBookingDesc(Model model,@RequestParam(name = "pages")  int pages) {
+        List<Booking> listBooking = (List<Booking>) bookingRepo.findAllByOrderByBookingIDDesc();
+        
+        //dem so trang booking
+        int totalBooking = listBooking.size();
+        int firstResult, maxResult;             
+        int totalPages;
+        if (totalBooking % 12 == 0) {
+            totalPages = totalBooking / 6;
+        } else {
+            totalPages = (totalBooking / 6) + 1;
+        }
+        int count = 0;
+        if (totalBooking <= 6) {
+            firstResult = 0;
+            maxResult = totalBooking;
+        } else {
+            firstResult = (pages - 1) * 6;
+            maxResult = firstResult + 6;
+        }
+        List<Booking> ptListBook = new ArrayList<Booking>();
+        for (int i = firstResult; i < totalBooking && i < maxResult; i++) {
+            count++;
+            ptListBook.add(listBooking.get(i));
+        }
+        
+        //count = count + firstResult;
+        model.addAttribute("pages", pages);
+        model.addAttribute("totalPages", totalPages);
+        model.addAttribute("listBooking", ptListBook);
+        model.addAttribute("sort", "sortDescId");
+        return "manageBooking";
+    }
+    
+    //phan trang asc by date booking
+    @RequestMapping(value="/sortDatebk")
+    public String sortbyDatebooking(Model model,@RequestParam(name = "pages",defaultValue = "1")  int pages) {
+        List<Booking> listBooking = (List<Booking>) bookingRepo.findAllByOrderByDateBooking();
+        
+        //dem so trang booking
+        int totalBooking = listBooking.size();
+        int firstResult, maxResult;             
+        int totalPages;
+        if (totalBooking % 12 == 0) {
+            totalPages = totalBooking / 6;
+        } else {
+            totalPages = (totalBooking / 6) + 1;
+        }
+        int count = 0;
+        if (totalBooking <= 6) {
+            firstResult = 0;
+            maxResult = totalBooking;
+        } else {
+            firstResult = (pages - 1) * 6;
+            maxResult = firstResult + 6;
+        }
+        List<Booking> ptListBook = new ArrayList<Booking>();
+        for (int i = firstResult; i < totalBooking && i < maxResult; i++) {
+            count++;
+            ptListBook.add(listBooking.get(i));
+        }
+        
+        //count = count + firstResult;
+        model.addAttribute("pages", pages);
+        model.addAttribute("totalPages", totalPages);
+        model.addAttribute("listBooking", ptListBook);
+        model.addAttribute("sort", "sortdate");
+        return "manageBooking";
+    }
+    
+    //phan trang desc by date booking
+    @RequestMapping(value="/sortDateBKDesc")
+    public String sortbyDatebookingDesc(Model model,@RequestParam(name = "pages")  int pages) {
+        List<Booking> listBooking = (List<Booking>) bookingRepo.findAllByOrderByDateBookingDesc();
+        
+        //dem so trang booking
+        int totalBooking = listBooking.size();
+        int firstResult, maxResult;             
+        int totalPages;
+        if (totalBooking % 12 == 0) {
+            totalPages = totalBooking / 6;
+        } else {
+            totalPages = (totalBooking / 6) + 1;
+        }
+        int count = 0;
+        if (totalBooking <= 6) {
+            firstResult = 0;
+            maxResult = totalBooking;
+        } else {
+            firstResult = (pages - 1) * 6;
+            maxResult = firstResult + 6;
+        }
+        List<Booking> ptListBook = new ArrayList<Booking>();
+        for (int i = firstResult; i < totalBooking && i < maxResult; i++) {
+            count++;
+            ptListBook.add(listBooking.get(i));
+        }
+        
+        //count = count + firstResult;
+        model.addAttribute("pages", pages);
+        model.addAttribute("totalPages", totalPages);
+        model.addAttribute("listBooking", ptListBook);
+        model.addAttribute("sort", "sortdateDesc");
         return "manageBooking";
     }
 

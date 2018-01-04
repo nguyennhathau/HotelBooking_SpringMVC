@@ -64,6 +64,7 @@ public class AdminController {
         model.addAttribute("pages", pages);
         model.addAttribute("totalPages", totalPages);
         model.addAttribute("accList", ptAcclist);
+        model.addAttribute("sort", "sortByidAsc");
         return "managerAcc";
     }
     
@@ -100,9 +101,158 @@ public class AdminController {
         model.addAttribute("pages", pages);
         model.addAttribute("totalPages", totalPages);
         model.addAttribute("accList", ptAcclist);
+        model.addAttribute("sort", "sortByidDesc");
         return "managerAcc";
     }
 
+    //sort by status
+    @RequestMapping(value = "/sortbystatus")
+    public String sortbyStatus(Model model, @RequestParam(name = "pages", defaultValue = "1") int pages) {
+        List<Account> accList = (List<Account>) accRepo.sortAccountBystatus();
+    
+        //dem so trang auction 
+        int totalAcc = accList.size();
+        int firstResult, maxResult;
+
+        int totalPages;
+        if (totalAcc % 12 == 0) {
+            totalPages = totalAcc / 6;
+        } else {
+            totalPages = (totalAcc / 6) + 1;
+        }
+        int count = 0;
+        if (totalAcc <= 6) {
+            firstResult = 0;
+            maxResult = totalAcc;
+        } else {
+            firstResult = (pages - 1) * 6;
+            maxResult = firstResult + 6;
+        }
+        List<Account> ptAcclist = new ArrayList<Account>();
+        for (int i = firstResult; i < totalAcc && i < maxResult; i++) {
+            count++;
+            ptAcclist.add(accList.get(i));
+        }
+
+        //count = count + firstResult;
+        model.addAttribute("pages", pages);
+        model.addAttribute("totalPages", totalPages);
+        model.addAttribute("accList", ptAcclist);
+        model.addAttribute("sort", "sortByStatus");
+        return "managerAcc";
+    }
+    
+    //sort by status desc
+    @RequestMapping(value = "/sortbystatusDesc")
+    public String sortbyStatusDesc(Model model, @RequestParam(name = "pages", defaultValue = "1") int pages) {
+        List<Account> accList = (List<Account>) accRepo.findAllByOrderByStatusDesc();
+    
+        //dem so trang auction 
+        int totalAcc = accList.size();
+        int firstResult, maxResult;
+
+        int totalPages;
+        if (totalAcc % 12 == 0) {
+            totalPages = totalAcc / 6;
+        } else {
+            totalPages = (totalAcc / 6) + 1;
+        }
+        int count = 0;
+        if (totalAcc <= 6) {
+            firstResult = 0;
+            maxResult = totalAcc;
+        } else {
+            firstResult = (pages - 1) * 6;
+            maxResult = firstResult + 6;
+        }
+        List<Account> ptAcclist = new ArrayList<Account>();
+        for (int i = firstResult; i < totalAcc && i < maxResult; i++) {
+            count++;
+            ptAcclist.add(accList.get(i));
+        }
+
+        //count = count + firstResult;
+        model.addAttribute("pages", pages);
+        model.addAttribute("totalPages", totalPages);
+        model.addAttribute("accList", ptAcclist);
+        model.addAttribute("sort", "sortByStatusDesc");
+        return "managerAcc";
+    }
+    
+    //sort by role
+    @RequestMapping(value = "/sortbyrole")
+    public String sortbyRole(Model model, @RequestParam(name = "pages", defaultValue = "1") int pages) {
+        List<Account> accList = (List<Account>) accRepo.sortbyrole();
+    
+        //dem so trang auction 
+        int totalAcc = accList.size();
+        int firstResult, maxResult;
+
+        int totalPages;
+        if (totalAcc % 12 == 0) {
+            totalPages = totalAcc / 6;
+        } else {
+            totalPages = (totalAcc / 6) + 1;
+        }
+        int count = 0;
+        if (totalAcc <= 6) {
+            firstResult = 0;
+            maxResult = totalAcc;
+        } else {
+            firstResult = (pages - 1) * 6;
+            maxResult = firstResult + 6;
+        }
+        List<Account> ptAcclist = new ArrayList<Account>();
+        for (int i = firstResult; i < totalAcc && i < maxResult; i++) {
+            count++;
+            ptAcclist.add(accList.get(i));
+        }
+
+        //count = count + firstResult;
+        model.addAttribute("pages", pages);
+        model.addAttribute("totalPages", totalPages);
+        model.addAttribute("accList", ptAcclist);
+        model.addAttribute("sort", "sortByRole");
+        return "managerAcc";
+    }
+    
+    //sort by role desc
+    @RequestMapping(value = "/sortbyroleDesc")
+    public String sortbyRoleDesc(Model model, @RequestParam(name = "pages", defaultValue = "1") int pages) {
+        List<Account> accList = (List<Account>) accRepo.sortbyroleDesc();
+    
+        //dem so trang auction 
+        int totalAcc = accList.size();
+        int firstResult, maxResult;
+
+        int totalPages;
+        if (totalAcc % 12 == 0) {
+            totalPages = totalAcc / 6;
+        } else {
+            totalPages = (totalAcc / 6) + 1;
+        }
+        int count = 0;
+        if (totalAcc <= 6) {
+            firstResult = 0;
+            maxResult = totalAcc;
+        } else {
+            firstResult = (pages - 1) * 6;
+            maxResult = firstResult + 6;
+        }
+        List<Account> ptAcclist = new ArrayList<Account>();
+        for (int i = firstResult; i < totalAcc && i < maxResult; i++) {
+            count++;
+            ptAcclist.add(accList.get(i));
+        }
+
+        //count = count + firstResult;
+        model.addAttribute("pages", pages);
+        model.addAttribute("totalPages", totalPages);
+        model.addAttribute("accList", ptAcclist);
+        model.addAttribute("sort", "sortByRoleDesc");
+        return "managerAcc";
+    }
+    
     
     @RequestMapping(value = "/newAcc", method = GET)
     public String newAcc(Model model) {
