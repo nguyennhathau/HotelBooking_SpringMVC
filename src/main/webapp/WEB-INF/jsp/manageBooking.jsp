@@ -41,22 +41,17 @@
                     <tr>
                         <th>
                             <div>
-                                <button class="btn btn-sm" onclick="location.href = '/hotelWeb/'"><i class="fa fa-caret-up"></i></button>
-                                <button class="btn btn-sm" onclick="location.href = '/hotelWeb/'"><i class="fa fa-caret-down"></i></button>
+                                <button class="btn btn-sm" onclick="location.href = '/hotelWeb/getBooking?pages=${pages}'"><i class="fa fa-caret-up"></i></button>
+                                <button class="btn btn-sm" onclick="location.href = '/hotelWeb/getBookingDesc?pages=${pages}'"><i class="fa fa-caret-down"></i></button>
                             </div>
                         </th>
                         <th>
                             <div>
-                                <button class="btn btn-sm" onclick="location.href = '/hotelWeb/'"><i class="fa fa-caret-up"></i></button>
-                                <button class="btn btn-sm" onclick="location.href = '/hotelWeb/'"><i class="fa fa-caret-down"></i></button>
+                                <button class="btn btn-sm" onclick="location.href = '/hotelWeb/sortDatebk?pages=${pages}'"><i class="fa fa-caret-up"></i></button>
+                                <button class="btn btn-sm" onclick="location.href = '/hotelWeb/sortDateBKDesc?pages=${pages}'"><i class="fa fa-caret-down"></i></button>
                             </div>
                         </th>
-                        <th>
-                            <div>
-                                <button class="btn btn-sm" onclick="location.href = '/hotelWeb/'"><i class="fa fa-caret-up"></i></button>
-                                <button class="btn btn-sm" onclick="location.href = '/hotelWeb/'"><i class="fa fa-caret-down"></i></button>
-                            </div>
-                        </th>
+                        <th></th>
                         <th></th>
                         <th></th>
                     </tr>
@@ -85,15 +80,55 @@
 
             <!--phan trang--> 
             <ul class="pagination">
-                <li><a href="getBooking?pages=1">«</a></li>
-                    <c:forEach var="i" begin="1" end="${totalPages}">
-                        <c:set var="active" value="${pages}"/>
-                    <li <c:if test="${active == i}">class="active"</c:if>>
-                        <a href="getBooking?pages=${i}">
-                            <c:out value="${i}"/></a></li>
+                <!--sort descending by id-->
+                <c:if test="${sort=='sortDescId'}"> 
+                    <li><a href="getBookingDesc?pages=1">«</a></li>
+                        <c:forEach var="i" begin="1" end="${totalPages}">
+                            <c:set var="active" value="${pages}"/>
+                        <li <c:if test="${active == i}">class="active"</c:if>>
+                            <a href="getBookingDesc?pages=${i}">
+                                <c:out value="${i}"/>
+                            </a>
+                        </li>
+                    </c:forEach>
+                    <li><a href="getBookingDesc?pages=${totalPages}">»</a></li>
+                    </c:if>
 
-                </c:forEach>
-                <li><a href="getBooking?pages=${totalPages}">»</a></li>
+                <!--sort asc by id-->
+                <c:if test="${sort=='sortId'}"> 
+                    <li><a href="getBooking?pages=1">«</a></li>
+                        <c:forEach var="i" begin="1" end="${totalPages}">
+                            <c:set var="active" value="${pages}"/>
+                        <li <c:if test="${active == i}">class="active"</c:if>>
+                            <a href="getBooking?pages=${i}">
+                                <c:out value="${i}"/></a></li>
+                            </c:forEach>
+                    <li><a href="getBooking?pages=${totalPages}">»</a></li>
+                    </c:if>
+
+                <!--sort asc by date booking-->
+                <c:if test="${sort=='sortdate'}"> 
+                    <li><a href="sortDatebk?pages=1">«</a></li>
+                        <c:forEach var="i" begin="1" end="${totalPages}">
+                            <c:set var="active" value="${pages}"/>
+                        <li <c:if test="${active == i}">class="active"</c:if>>
+                            <a href="sortDatebk?pages=${i}">
+                                <c:out value="${i}"/></a></li>
+                            </c:forEach>
+                    <li><a href="sortDatebk?pages=${totalPages}">»</a></li>
+                    </c:if>
+
+                <!--sort desc by date booking-->
+                <c:if test="${sort=='sortdateDesc'}"> 
+                    <li><a href="sortDateBKDesc?pages=1">«</a></li>
+                        <c:forEach var="i" begin="1" end="${totalPages}">
+                            <c:set var="active" value="${pages}"/>
+                        <li <c:if test="${active == i}">class="active"</c:if>>
+                            <a href="sortDateBKDesc?pages=${i}">
+                                <c:out value="${i}"/></a></li>
+                            </c:forEach>
+                    <li><a href="sortDateBKDesc?pages=${totalPages}">»</a></li>
+                    </c:if>
             </ul>
 
             <c:if test="${message != null}">

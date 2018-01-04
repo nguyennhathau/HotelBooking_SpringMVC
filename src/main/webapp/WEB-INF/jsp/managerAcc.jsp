@@ -17,30 +17,27 @@
                                 <button class="btn btn-sm" onclick="location.href = '/hotelWeb/managerAccDes?pages=${pages}'"><i class="fa fa-caret-down"></i></button>
                             </div>
                         </th>
+                        <th>
+                        </th>
                         <th><div>
-                                <button class="btn btn-sm" type="button"><i class="fa fa-caret-up"></i></button>
-                                <button class="btn btn-sm" type="button"><i class="fa fa-caret-down"></i></button>
+                                <button class="btn btn-sm" onclick="location.href = '/hotelWeb/sortbystatus?pages=${pages}'"><i class="fa fa-caret-up"></i></button>
+                                <button class="btn btn-sm" onclick="location.href = '/hotelWeb/sortbystatusDesc?pages=${pages}'"><i class="fa fa-caret-down"></i></button>
                             </div></th>
-                        <th><div>
-                                <button class="btn btn-sm" type="button"><i class="fa fa-caret-up"></i></button>
-                                <button class="btn btn-sm" type="button"><i class="fa fa-caret-down"></i></button>
-                            </div></th>
-                        <th><div>
-                                <button class="btn btn-sm" type="button"><i class="fa fa-caret-up"></i></button>
-                                <button class="btn btn-sm" type="button"><i class="fa fa-caret-down"></i></button>
-                            </div></th>
-                        <th><div>
-                                <button class="btn btn-sm" type="button"><i class="fa fa-caret-up"></i></button>
-                                <button class="btn btn-sm" type="button"><i class="fa fa-caret-down"></i></button>
-                            </div></th>
+                        <th>
+                            <div>
+                                <button class="btn btn-sm" onclick="location.href = '/hotelWeb/sortbyrole?pages=${pages}'"><i class="fa fa-caret-up"></i></button>
+                                <button class="btn btn-sm" onclick="location.href = '/hotelWeb/sortbyroleDesc?pages=${pages}'"><i class="fa fa-caret-down"></i></button>
+                            </div>
+                        </th>
+                        <th></th>
 
                     </tr>
                     <tr>
                         <th>ID</th>
                         <th>Username</th>
-                        <th>password</th>
                         <th>status</th>
                         <th>Role</th>
+                        <th>password</th>
                         <th>Edit</th>
                         <th>Delete</th>
                     </tr>
@@ -50,9 +47,9 @@
                         <tr>
                             <th>${acc.accountID}</th>
                             <th>${acc.userName}</th>
-                            <th>******</th>
                             <th class="text-primary">${acc.status}</th>
-                            <th>${acc.role.roleName}</th>                                   
+                            <th>${acc.role.roleName}</th>   
+                            <th>******</th>
                             <th><button onclick="location.href = 'editAcc/${acc.accountID}'" class="btn btn-default">Edit </button></th>                                   
                             <th><button onclick="location.href = 'deleteAcc/${acc.accountID}'" class="btn btn-default">Delete</button></th>                                   
                         </tr>
@@ -60,6 +57,8 @@
                 </tbody>
             </table>
             <ul class="pagination">
+                <!--sort by id asc-->
+                <c:if test="${sort=='sortByidAsc'}">
                 <li><a href="managerAcc?pages=1">«</a></li>
                     <c:forEach var="i" begin="1" end="${totalPages}">
                         <c:set var="active" value="${pages}"/>
@@ -69,6 +68,68 @@
 
                 </c:forEach>
                 <li><a href="managerAcc?pages=${totalPages}">»</a></li>
+                </c:if>
+                
+                 <!--sort by id desc-->
+                <c:if test="${sort=='sortByidDesc'}">
+                <li><a href="managerAccDes?pages=1">«</a></li>
+                    <c:forEach var="i" begin="1" end="${totalPages}">
+                        <c:set var="active" value="${pages}"/>
+                    <li <c:if test="${active == i}">class="active"</c:if>>
+                        <a href="managerAccDes?pages=${i}">
+                            <c:out value="${i}"/></a></li>
+
+                </c:forEach>
+                <li><a href="managerAccDes?pages=${totalPages}">»</a></li>
+                </c:if>
+                 <!--sort by status-->
+                <c:if test="${sort=='sortByStatus'}">
+                <li><a href="sortbystatus?pages=1">«</a></li>
+                    <c:forEach var="i" begin="1" end="${totalPages}">
+                        <c:set var="active" value="${pages}"/>
+                    <li <c:if test="${active == i}">class="active"</c:if>>
+                        <a href="sortbystatus?pages=${i}">
+                            <c:out value="${i}"/></a></li>
+
+                </c:forEach>
+                <li><a href="sortbystatus?pages=${totalPages}">»</a></li>
+                </c:if>
+                 <!--sort by status desc-->
+                <c:if test="${sort=='sortByStatusDesc'}">
+                <li><a href="sortbystatusDesc?pages=1">«</a></li>
+                    <c:forEach var="i" begin="1" end="${totalPages}">
+                        <c:set var="active" value="${pages}"/>
+                    <li <c:if test="${active == i}">class="active"</c:if>>
+                        <a href="sortbystatusDesc?pages=${i}">
+                            <c:out value="${i}"/></a></li>
+
+                </c:forEach>
+                <li><a href="sortbystatusDesc?pages=${totalPages}">»</a></li>
+                </c:if>
+                 <!--sort by role-->
+                <c:if test="${sort=='sortByRole'}">
+                <li><a href="sortbyrole?pages=1">«</a></li>
+                    <c:forEach var="i" begin="1" end="${totalPages}">
+                        <c:set var="active" value="${pages}"/>
+                    <li <c:if test="${active == i}">class="active"</c:if>>
+                        <a href="sortbyrole?pages=${i}">
+                            <c:out value="${i}"/></a></li>
+
+                </c:forEach>
+                <li><a href="sortbyrole?pages=${totalPages}">»</a></li>
+                </c:if>
+                 <!--sort by role desc-->
+                <c:if test="${sort=='sortByRoleDesc'}">
+                <li><a href="sortbyroleDesc?pages=1">«</a></li>
+                    <c:forEach var="i" begin="1" end="${totalPages}">
+                        <c:set var="active" value="${pages}"/>
+                    <li <c:if test="${active == i}">class="active"</c:if>>
+                        <a href="sortbyroleDesc?pages=${i}">
+                            <c:out value="${i}"/></a></li>
+
+                </c:forEach>
+                <li><a href="sortbyroleDesc?pages=${totalPages}">»</a></li>
+                </c:if>
             </ul>
         </div>
     </div>

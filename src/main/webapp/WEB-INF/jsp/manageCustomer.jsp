@@ -10,6 +10,23 @@
                 <table class="table">
                     <thead>
                         <tr>
+                            <th>
+                                <div>
+                                    <button class="btn btn-sm" onclick="location.href = '/hotelWeb/managerCust?pages=${pages}'"><i class="fa fa-caret-up"></i></button>
+                                    <button class="btn btn-sm" onclick="location.href = '/hotelWeb/managerCustDesc?pages=${pages}'"><i class="fa fa-caret-down"></i></button>
+                                </div>
+                            </th>
+                            <th>
+                                <div>
+                                    <button class="btn btn-sm" onclick="location.href = '/hotelWeb/managerCustFN?pages=${pages}'"><i class="fa fa-caret-up"></i></button>
+                                    <button class="btn btn-sm" onclick="location.href = '/hotelWeb/managerCustDescFN?pages=${pages}'"><i class="fa fa-caret-down"></i></button>
+                                </div>
+                            </th>
+                            <th></th>
+                            <th></th>
+                            <th></th>
+                        </tr>
+                        <tr>
                             <th>ID</th>
                             <th>Full Name</th>
                             <th>Email</th>
@@ -34,15 +51,61 @@
                     </tbody>
                 </table>
                 <ul class="pagination">
-                    <li><a href="managerCust?pages=1">«</a></li>
-                        <c:forEach var="i" begin="1" end="${totalPages}">
-                            <c:set var="active" value="${pages}"/>
-                        <li <c:if test="${active == i}">class="active"</c:if>>
-                            <a href="managerCust?pages=${i}">
-                                <c:out value="${i}"/></a></li>
+                    <!--//sort acsending-->
+                    <c:if test="${sort=='sortAsc'}">
+                        <li><a href="managerCust?pages=1">«</a></li>
+                            <c:forEach var="i" begin="1" end="${totalPages}">
+                                <c:set var="active" value="${pages}"/>
+                            <li <c:if test="${active == i}">class="active"</c:if>>
+                                <a href="managerCust?pages=${i}">
+                                    <c:out value="${i}"/>
+                                </a>
+                            </li>
+                        </c:forEach>
+                        <li><a href="managerCust?pages=${totalPages}">»</a></li>
+                        </c:if>
 
-                    </c:forEach>
-                    <li><a href="managerCust?pages=${totalPages}">»</a></li>
+                    <!--sort descending by id-->
+                    <c:if test="${sort=='sortDesc'}"> 
+                        <li><a href="managerCustDesc?pages=1">«</a></li>
+                            <c:forEach var="i" begin="1" end="${totalPages}">
+                                <c:set var="active" value="${pages}"/>
+                            <li <c:if test="${active == i}">class="active"</c:if>>
+                                <a href="managerCustDesc?pages=${i}">
+                                    <c:out value="${i}"/>
+                                </a>
+                            </li>
+                        </c:forEach>
+                        <li><a href="managerCustDesc?pages=${totalPages}">»</a></li>
+                        </c:if>
+                        
+                    <!--sort asc by fullname-->
+                    <c:if test="${sort=='sortAscFN'}"> 
+                        <li><a href="managerCustDesc?pages=1">«</a></li>
+                            <c:forEach var="i" begin="1" end="${totalPages}">
+                                <c:set var="active" value="${pages}"/>
+                            <li <c:if test="${active == i}">class="active"</c:if>>
+                                <a href="managerCustDesc?pages=${i}">
+                                    <c:out value="${i}"/>
+                                </a>
+                            </li>
+                        </c:forEach>
+                        <li><a href="managerCustDesc?pages=${totalPages}">»</a></li>
+                        </c:if>
+                        
+                        <!--sort desc by fullname-->
+                    <c:if test="${sort=='sortDescFN'}"> 
+                        <li><a href="managerCustDesc?pages=1">«</a></li>
+                            <c:forEach var="i" begin="1" end="${totalPages}">
+                                <c:set var="active" value="${pages}"/>
+                            <li <c:if test="${active == i}">class="active"</c:if>>
+                                <a href="managerCustDesc?pages=${i}">
+                                    <c:out value="${i}"/>
+                                </a>
+                            </li>
+                        </c:forEach>
+                        <li><a href="managerCustDesc?pages=${totalPages}">»</a></li>
+                        </c:if>
                 </ul>
             </div>
         </div>
